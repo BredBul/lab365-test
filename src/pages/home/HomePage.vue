@@ -8,10 +8,10 @@
 </template>
 
 <style lang="scss">
-  .home__nav {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin: 20px;
-  }
+.home__nav {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px;
+}
 </style>

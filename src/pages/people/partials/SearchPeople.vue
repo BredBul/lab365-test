@@ -4,7 +4,9 @@
     <div v-if="isLoading">Loading...</div>
     <ul v-else-if="searchResults.length">
       <li v-for="result in searchResults" :key="result.url">
-        <router-link :to="{ name: 'person', params: { id: extractIdFromUrl(result.url) }}">
+        <router-link
+          :to="{ name: 'person', params: { id: extractIdFromUrl(result.url) } }"
+        >
           {{ result.name }}
         </router-link>
       </li>
@@ -17,48 +19,50 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
-import { Person } from "@/store";
+import { ref, watch } from 'vue'
+import { Person } from '@/store'
 
-const search = ref("");
-const searchTimeout = ref<number | null>(null);
-const searchResults = ref<Person[]>([]);
-const isLoading = ref(false);
-const errorMessage = ref("");
+const search = ref('')
+const searchTimeout = ref<number | null>(null)
+const searchResults = ref<Person[]>([])
+const isLoading = ref(false)
+const errorMessage = ref('')
 
 watch(search, (query) => {
   if (searchTimeout.value) {
-    clearInterval(searchTimeout.value);
+    clearInterval(searchTimeout.value)
   }
-  isLoading.value = true;
-  errorMessage.value = "";
+  isLoading.value = true
+  errorMessage.value = ''
 
   searchTimeout.value = setTimeout(async () => {
     if (query) {
       try {
-        const response = await fetch(`https://swapi.dev/api/people/?search=${query}`);
-        const data = await response.json();
+        const response = await fetch(
+          `https://swapi.dev/api/people/?search=${query}`,
+        )
+        const data = await response.json()
 
         if (query === search.value) {
-          searchResults.value = data.results;
+          searchResults.value = data.results
         }
       } catch (error) {
-        console.error("Error:", error);
-        errorMessage.value = "An error occurred while fetching data";
+        console.error('Error:', error)
+        errorMessage.value = 'An error occurred while fetching data'
       } finally {
-        isLoading.value = false;
+        isLoading.value = false
       }
     } else {
-      searchResults.value = [];
-      isLoading.value = false;
+      searchResults.value = []
+      isLoading.value = false
     }
-  }, 300);
-});
+  }, 300)
+})
 
 const extractIdFromUrl = (url: string) => {
-  const match = url.match(/\/(\d+)\/$/);
-  return match ? parseInt(match[1], 10) : null;
-};
+  const match = url.match(/\/(\d+)\/$/)
+  return match ? parseInt(match[1], 10) : null
+}
 </script>
 
 <style scoped>

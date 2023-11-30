@@ -11,18 +11,21 @@
 </template>
 
 <script setup lang="ts">
-import PeopleList from "@/components/PeopleList/PeopleList.vue";
-import {ref, onMounted} from 'vue';
-import {useStore} from "vuex";
+import PeopleList from '@/components/PeopleList/PeopleList.vue'
+import { ref, onMounted } from 'vue'
+import { useStore } from 'vuex'
 
-const store = useStore();
-const favorites = ref(store.getters.getFavorites);
+const store = useStore()
+const favorites = ref(store.getters.getFavorites)
 
 onMounted(() => {
-  store.watch(() => store.getters.getFavorites, (newFavorites) => {
-    favorites.value = newFavorites;
-  });
-});
+  store.watch(
+    () => store.getters.getFavorites,
+    (newFavorites) => {
+      favorites.value = newFavorites
+    },
+  )
+})
 </script>
 
 <style src="./style.scss" />
