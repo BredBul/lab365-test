@@ -1,0 +1,38 @@
+.person {
+
+  &__content {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 16px;
+  }
+
+  &__name {
+    font-size: 24px;
+  }
+
+  &__property, &__header {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 8px;
+
+    &__label {
+      font-weight: bold;
+      margin-right: 8px;
+    }
+
+    &__value {
+      flex-grow: 1;
+    }
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 4px;
+    }
+  }
+}
